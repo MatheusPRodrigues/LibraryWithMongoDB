@@ -28,5 +28,22 @@ namespace LibraryWithMongoDB.Models
             this.AuthorName = authorName;
             this.Country = country;
         }
+
+        public void SetAuthorName(string name)
+        {
+            this.AuthorName = name;
+        }
+
+        public void SetCountry(string country)
+        {
+            this.Country = country;
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {this.Id}\n" +
+                $"Nome do autor: {this.AuthorName}\n" +
+                $"País: {this.Country}";
+        }
     }
 }

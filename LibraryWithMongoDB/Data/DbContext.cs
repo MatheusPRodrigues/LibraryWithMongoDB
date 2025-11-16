@@ -14,7 +14,7 @@ namespace LibraryWithMongoDB.Data
 
         public DbContext()
         {
-            var client = new MongoClient("mongodb+srv://libraryadmin:library123@localhost:27017/");
+            var client = new MongoClient("mongodb://libraryadmin:library123@localhost:27017/");
             this._context = client.GetDatabase("Library");
         }
 
