@@ -12,18 +12,20 @@ namespace LibraryWithMongoDB.Services
 {
     public class AuthorService
     {
-        private readonly AuthorCollection _collection;
+        private readonly AuthorCollection _authorCollection;
+        private readonly BookCollection _bookCollection;
 
-        public AuthorService(AuthorCollection repository)
+        public AuthorService(AuthorCollection authorCollection, BookCollection bookCollection)
         {
-            this._collection = repository;
+            this._authorCollection = authorCollection;
+            this._bookCollection = bookCollection;
         }
 
         public void InsertAuthor(AuthorModel author)
         {
-            if (_collection.FindByName(author.AuthorName).Result == null)
+            if (_authorCollection.FindByName(author.AuthorName).Result == null)
             {
-                _collection.AddAuthor(author);
+                _authorCollection.AddAuthor(author);
                 Console.WriteLine("Autor cadastrado com sucesso!");
             }
             else
@@ -34,22 +36,23 @@ namespace LibraryWithMongoDB.Services
 
         public List<AuthorModel> FindAll()
         {
-            return _collection.FindAll().Result;
+            return _authorCollection.FindAll().Result;
         }
 
         public AuthorModel FindById(string id)
         {
-            return _collection.FindById(id).Result;
+            return _authorCollection.FindById(id).Result;
         }
 
         public AuthorModel DeleteById(string id)
         {
-            return _collection.DeleteById(id).Result;  
+            _bookCollection.UpdateAuthorIdToNull(id);
+            return _authorCollection.DeleteById(id).Result;  
         }
 
         public void UpdateOne(AuthorModel author)
         {
-            _collection.ReplaceOne(author);
+            _authorCollection.ReplaceOne(author);
         }
     }
 }

@@ -69,8 +69,8 @@ namespace LibraryWithMongoDB.Views.Book
             Console.Clear();
             if (_bookService.ThereAreBooks())
             {
-                Console.WriteLine("========= EXIBINDO TODOS OS LIVROS =========");
-                ShowAllBooksDtos(_bookService.FindAll());
+                Console.WriteLine("========= EXIBINDO TODOS OS LIVROS (Com Autores) =========");
+                ShowAllBooksDtos(_bookService.FindAllWithAuthors());
             }
             else
                 Console.WriteLine("Não existe nenhum livro cadastrado até o momento!");
@@ -211,14 +211,14 @@ namespace LibraryWithMongoDB.Views.Book
                         book.YearPublication = InputUtils.InsertYear("Digite o ano de publicação do livro");
                         break;
                     case "3":
-                        if (_bookService.FindAuthorsForUpdateBook(book.AuthorModel.Id) == null)
+                        if (_bookService.FindAuthorsForUpdateBook(book.AuthorModel != null ? book.AuthorModel.Id : null) == null)
                         {
                             Console.WriteLine("Só existe um autor no sistema e ele está cadastrado nesse livro!");
                             InputUtils.PressEnterToContinue();
                         }
                         else
                         {
-                            var author = UpdateAuthorOfTheBook(book.AuthorModel.Id);
+                            var author = UpdateAuthorOfTheBook(book.AuthorModel != null ? book.AuthorModel.Id : null);
 
                             if (author != null)
                                 book.AuthorModel = author;

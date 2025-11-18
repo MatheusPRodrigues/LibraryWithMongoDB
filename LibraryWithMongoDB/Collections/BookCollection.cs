@@ -34,6 +34,11 @@ namespace LibraryWithMongoDB.Collections
             return await _bookCollection.FindAsync(b => true).Result.ToListAsync();
         }
 
+        public async Task<List<BookModel>> FindAllWithAuthors()
+        {
+            return await _bookCollection.FindAsync(b => b.AuthorId != null).Result.ToListAsync();
+        }
+
         public async Task<BookModel> FindById(string id)
         {
             return await _bookCollection.FindAsync(b => b.Id == id).Result.FirstOrDefaultAsync();
@@ -47,6 +52,14 @@ namespace LibraryWithMongoDB.Collections
         public async Task<BookModel> DeleteById(string id)
         {
             return await _bookCollection.FindOneAndDeleteAsync(b => b.Id == id);
+        }
+
+        public async void UpdateAuthorIdToNull(string authorId)
+        {
+            await _bookCollection.UpdateOneAsync(
+                    b => b.AuthorId == authorId,
+                    Builders<BookModel>.Update.Set(b => b.AuthorId, null)
+                );
         }
     }
 }

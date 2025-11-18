@@ -38,7 +38,7 @@ namespace LibraryWithMongoDB.Collections
             return await _authorCollection.FindAsync(a => a.Id == id).Result.FirstOrDefaultAsync();
         }
 
-        public async Task<List<AuthorModel>> FindAuthorsForUpdateBook(string id)
+        public async Task<List<AuthorModel>> FindAuthorsForUpdateBook(string? id)
         {
             return await _authorCollection.FindAsync(a => a.Id != id).Result.ToListAsync();   
         }

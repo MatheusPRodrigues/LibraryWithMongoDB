@@ -45,9 +45,27 @@ namespace LibraryWithMongoDB.Services
             return _authorCollection.FindAll().Result;
         }
 
-        public List<AuthorModel> FindAuthorsForUpdateBook(string id)
+        public List<AuthorModel> FindAuthorsForUpdateBook(string? id)
         {
             return _authorCollection.FindAuthorsForUpdateBook(id).Result;
+        }
+
+        public List<BookDto> FindAllWithAuthors()
+        {
+            var books = new List<BookDto>();
+
+            var booksInDB = _bookCollection.FindAllWithAuthors().Result;
+
+            foreach (var b in booksInDB)
+            {
+                var author = _authorCollection.FindById(b.AuthorId).Result;
+
+                books.Add(
+                    new BookDto(b.Id, b.Title, b.YearPublication, author)
+                );
+            }
+
+            return books;  
         }
 
         public List<BookDto> FindAll()
@@ -65,7 +83,7 @@ namespace LibraryWithMongoDB.Services
                 );
             }
 
-            return books;  
+            return books;
         }
 
         public BookDto FindById(string id)
@@ -97,7 +115,7 @@ namespace LibraryWithMongoDB.Services
             var book = new BookModel(
                     bookDto.Id,
                     bookDto.Title,
-                    bookDto.AuthorModel.Id,
+                    bookDto.AuthorModel != null ? bookDto.AuthorModel.Id : null,
                     bookDto.YearPublication
                 );
 

@@ -26,8 +26,7 @@ namespace LibraryWithMongoDB.Models.Dto
             return $"Id Livro: {this.Id}\n" +
                 $"Título: {this.Title}\n" +
                 $"Ano de publicação: {this.YearPublication}\n" +
-                $"Autor do livro: {this.AuthorModel.AuthorName}\n" +
-                $"País: {this.AuthorModel.Country}";
+                $"{(this.AuthorModel != null ? $"Nome do Autor:{this.AuthorModel.AuthorName}\nPaís do Autor:{this.AuthorModel.Country}" : "Este livro não possui autor cadastrado!")}";
         }
     }
 }

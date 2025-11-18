@@ -12,7 +12,7 @@ void MainMenu()
     var authorCollection = new AuthorCollection(context);
     var bookCollection = new BookCollection(context);
 
-    var authorService = new AuthorService(authorCollection);
+    var authorService = new AuthorService(authorCollection, bookCollection);
     var bookService = new BookService(authorCollection, bookCollection);
 
     var repete = true;

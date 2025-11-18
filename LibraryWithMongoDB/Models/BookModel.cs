@@ -14,10 +14,10 @@ namespace LibraryWithMongoDB.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
         public string Title { get; private set; }
-        public string AuthorId { get; private set; }
-        public int YearPublication { get; set; }
+        public string? AuthorId { get; private set; }
+        public int YearPublication { get; set; } = 0;
 
-        public BookModel(string id, string title, string authorId, int yearPublication)
+        public BookModel(string id, string title, string? authorId, int yearPublication)
         {
             this.Id = id;
             this.Title = title;
