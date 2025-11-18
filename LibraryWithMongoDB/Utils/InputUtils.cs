@@ -62,5 +62,33 @@ namespace LibraryWithMongoDB.Utils
 
             return id;
         }
+
+        public static int InsertYear(string msgInput)
+        {
+            bool incorrect = true;
+            var value = "";
+            var year = 0;
+            do
+            {
+                Console.WriteLine(msgInput);
+                value = Console.ReadLine() ?? "";
+
+                if (!int.TryParse(value, out year))
+                {
+                    Console.WriteLine("Informe somente números!");
+                }
+                else if (year > DateTime.Now.Year)
+                {
+                    Console.WriteLine("Ano informado é inválido!");
+                }
+                else
+                {
+                    incorrect = false;
+                }
+            }
+            while (incorrect);
+
+            return year;
+        }
     }
 }

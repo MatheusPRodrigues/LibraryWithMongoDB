@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LibraryWithMongoDB.Views.Author
 {
-    public class CrudView
+    public class AuthorViews
     {
         private AuthorService authorService;
 
-        public CrudView(AuthorService authorService)
+        public AuthorViews(AuthorService authorService)
         {
             this.authorService = authorService;
         }

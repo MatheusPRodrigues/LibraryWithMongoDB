@@ -41,7 +41,7 @@ namespace LibraryWithMongoDB.Models
 
         public override string ToString()
         {
-            return $"Id: {this.Id}\n" +
+            return $"Id Autor: {this.Id}\n" +
                 $"Nome do autor: {this.AuthorName}\n" +
                 $"País: {this.Country}";
         }

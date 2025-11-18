@@ -21,7 +21,7 @@ namespace LibraryWithMongoDB.Services
 
         public void InsertAuthor(AuthorModel author)
         {
-            if (_collection.FindByName(author.AuthorName) == null)
+            if (_collection.FindByName(author.AuthorName).Result == null)
             {
                 _collection.AddAuthor(author);
                 Console.WriteLine("Autor cadastrado com sucesso!");

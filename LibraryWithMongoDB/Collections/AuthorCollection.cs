@@ -18,9 +18,9 @@ namespace LibraryWithMongoDB.Collections
             this._authorCollection = dbContext.GetAuthorCollection();
         }
 
-        public void AddAuthor(AuthorModel author)
+        public async void AddAuthor(AuthorModel author)
         {
-            _authorCollection.InsertOneAsync(author);
+            await _authorCollection.InsertOneAsync(author);
         }
 
         public async Task<AuthorModel> FindByName(string name)

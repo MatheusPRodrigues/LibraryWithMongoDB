@@ -23,9 +23,9 @@ namespace LibraryWithMongoDB.Data
             return this._context.GetCollection<AuthorModel>("Authors");
         }
 
-        public IMongoCollection<BooksModel> GetBookCollection()
+        public IMongoCollection<BookModel> GetBookCollection()
         {
-            return this._context.GetCollection<BooksModel>("Books");
+            return this._context.GetCollection<BookModel>("Books");
         }
     }
 }
