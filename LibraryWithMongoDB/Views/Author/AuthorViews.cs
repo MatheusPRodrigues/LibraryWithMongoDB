@@ -69,7 +69,7 @@ namespace LibraryWithMongoDB.Views.Author
         public void Update()
         {
             var authors = authorService.FindAll();
-
+            Console.Clear();
             if (ThereAreAuthors(authors))
             {
                 Console.WriteLine("========= SELECIONE UM AUTOR PARA ATUALIZAÇÃO =========");

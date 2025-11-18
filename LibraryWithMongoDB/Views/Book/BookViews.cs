@@ -211,12 +211,23 @@ namespace LibraryWithMongoDB.Views.Book
                         book.YearPublication = InputUtils.InsertYear("Digite o ano de publicação do livro");
                         break;
                     case "3":
-                        var author = UpdateAuthorOfTheBook();
-
-                        if (author != null)
-                            book.AuthorModel = author;
+                        if (_bookService.FindAuthorsForUpdateBook(book.AuthorModel.Id) == null)
+                        {
+                            Console.WriteLine("Só existe um autor no sistema e ele está cadastrado nesse livro!");
+                            InputUtils.PressEnterToContinue();
+                        }
                         else
-                            Console.WriteLine("Autor não encontrado! Tente novamente!");
+                        {
+                            var author = UpdateAuthorOfTheBook(book.AuthorModel.Id);
+
+                            if (author != null)
+                                book.AuthorModel = author;
+                            else
+                            {
+                                Console.WriteLine("Autor não encontrado! Tente novamente!");
+                                InputUtils.PressEnterToContinue();
+                            }
+                        }
                         break;
                     case "4":
                         _bookService.UpdateOne(book);
@@ -238,11 +249,11 @@ namespace LibraryWithMongoDB.Views.Book
             return isUpdated;
         }
 
-        private AuthorModel UpdateAuthorOfTheBook()
+        private AuthorModel UpdateAuthorOfTheBook(string idOfTheBook)
         {
             Console.Clear();
             Console.WriteLine("========= SELECIONE UM AUTOR PARA ATUALIZAÇÃO =========");
-            ShowAuthors(_bookService.AuthorToSelectForBook());
+            ShowAuthors(_bookService.FindAuthorsForUpdateBook(idOfTheBook));
             Console.WriteLine("\n*Selecione e copie o ID do autor que deseja selecionar para o livro!");
             var id = InputUtils.IdValue("Digite o ID do Autor que deseja selecionar:", "ID do autor inválido! Tente novamente!");
 

@@ -1,30 +1,55 @@
-﻿// See https://aka.ms/new-console-template for more information
-using LibraryWithMongoDB.Models;
-using LibraryWithMongoDB.Collections;
-using LibraryWithMongoDB.Services;
-using LibraryWithMongoDB.Views.Author;
+﻿using LibraryWithMongoDB.Collections;
 using LibraryWithMongoDB.Data;
+using LibraryWithMongoDB.Services;
+using LibraryWithMongoDB.Utils;
+using LibraryWithMongoDB.Views.Author;
 using LibraryWithMongoDB.Views.Book;
 
-var dbContext = new DbContext();
+void MainMenu()
+{
+    var context = new DbContext();
 
-AuthorCollection repository = new AuthorCollection(dbContext);
-AuthorService authorService = new AuthorService(repository);
-AuthorViews authorView = new AuthorViews(authorService);
+    var authorCollection = new AuthorCollection(context);
+    var bookCollection = new BookCollection(context);
 
-BookCollection bookCollection = new BookCollection(dbContext);
-BookService bookService = new BookService(repository, bookCollection);
-BookViews bookViews = new BookViews(bookService);
+    var authorService = new AuthorService(authorCollection);
+    var bookService = new BookService(authorCollection, bookCollection);
 
-//authorView.Create();
-//crudView.ReadAll();
-//crudView.ReadById();
-//crudView.DeleteById();
-//authorView.Update();
+    var repete = true;
+    var option = "";
 
-//bookViews.Create();
-//bookViews.Create();
-//bookViews.ReadAll();
-//bookViews.ReadById();
-//bookViews.DeleteById();
-bookViews.Update();
+    do
+    {
+        Console.Clear();
+        Console.WriteLine("===================== MENU PRINCIPAL =====================");
+        Console.WriteLine("1 - Menu de operação dos Autores");
+        Console.WriteLine("2 - Menu de operação dos Livros");
+        Console.WriteLine("0 - Encerrar Sistema");
+        Console.WriteLine("==========================================================");
+        Console.Write("=> ");
+        option = Console.ReadLine() ?? "-1";
+
+        switch(option)
+        {
+            case "1":
+                AuthorMenu.Menu(authorService);
+                break;
+            case "2":
+                BookMenu.Menu(bookService);
+                break;
+            case "0":
+                Console.Clear();
+                repete = false;
+                break;
+            default:
+                Console.WriteLine("Opção inválida! Tente uma das opções do menu!");
+                InputUtils.PressEnterToContinue();
+                break;
+        }
+    }
+    while (repete);
+    
+    Console.WriteLine("Programa encerrado com sucesso!");
+}
+
+MainMenu();

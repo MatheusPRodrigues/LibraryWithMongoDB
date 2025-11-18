@@ -45,6 +45,11 @@ namespace LibraryWithMongoDB.Services
             return _authorCollection.FindAll().Result;
         }
 
+        public List<AuthorModel> FindAuthorsForUpdateBook(string id)
+        {
+            return _authorCollection.FindAuthorsForUpdateBook(id).Result;
+        }
+
         public List<BookDto> FindAll()
         {
             var books = new List<BookDto>();

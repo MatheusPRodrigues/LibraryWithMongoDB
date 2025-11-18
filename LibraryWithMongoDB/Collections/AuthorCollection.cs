@@ -38,6 +38,11 @@ namespace LibraryWithMongoDB.Collections
             return await _authorCollection.FindAsync(a => a.Id == id).Result.FirstOrDefaultAsync();
         }
 
+        public async Task<List<AuthorModel>> FindAuthorsForUpdateBook(string id)
+        {
+            return await _authorCollection.FindAsync(a => a.Id != id).Result.ToListAsync();   
+        }
+
         public async Task<AuthorModel> DeleteById(string id)
         {
             return await _authorCollection.FindOneAndDeleteAsync(a => a.Id == id);

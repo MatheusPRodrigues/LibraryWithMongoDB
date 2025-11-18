@@ -1,33 +1,35 @@
-﻿using LibraryWithMongoDB.Services;
+﻿using LibraryWithMongoDB.Collections;
+using LibraryWithMongoDB.Data;
+using LibraryWithMongoDB.Services;
 using LibraryWithMongoDB.Utils;
-using LibraryWithMongoDB.Views.Author;
+using MongoDB.Bson.Serialization.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryWithMongoDB.Views.Book
+namespace LibraryWithMongoDB.Views.Author
 {
-    public class BookMenu
+    public class AuthorMenu
     {
-        public static void Menu(BookService bookService)
+        public static void Menu(AuthorService authorService)
         {
-            var operations = new BookViews(bookService);
+            var operations = new AuthorViews(authorService);
 
             var repete = true;
             var option = "";
             do
             {
                 Console.Clear();
-                Console.WriteLine("===================== LIVROS =====================");
-                Console.WriteLine("1 - Cadastrar Livro");
-                Console.WriteLine("2 - Exibir todos Livros");
-                Console.WriteLine("3 - Exibir um Livro pelo Id");
-                Console.WriteLine("4 - Atualizar um Livro");
-                Console.WriteLine("5 - Deletar um Livro");
+                Console.WriteLine("===================== AUTORES =====================");
+                Console.WriteLine("1 - Cadastrar Autor");
+                Console.WriteLine("2 - Exibir todos Autores");
+                Console.WriteLine("3 - Exibir um Autor pelo Id");
+                Console.WriteLine("4 - Atualizar um Autor");
+                Console.WriteLine("5 - Deletar um Autor");
                 Console.WriteLine("0 - Retornar para menu anterior");
-                Console.WriteLine("==================================================");
+                Console.WriteLine("===================================================");
                 Console.Write("=> ");
                 option = Console.ReadLine() ?? "-1";
 
